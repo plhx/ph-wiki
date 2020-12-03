@@ -1,5 +1,5 @@
-import wiki.presentation.controller as flask_controller
+from wiki.presentation.controller import app
 
 
 if __name__ == '__main__':
-    flask_controller.app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=True)

@@ -1,4 +1,3 @@
-from __future__ import annotations
 import datetime
 from .model import IEntity, IValueObject
 
@@ -43,7 +42,7 @@ class PageLastModified(IValueObject):
         return self.value > other.value
 
     @classmethod
-    def now(cls) -> PageLastModified:
+    def now(cls) -> 'PageLastModified':
         return cls(datetime.datetime.now(datetime.timezone.utc))
 
 

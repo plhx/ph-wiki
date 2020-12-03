@@ -1,4 +1,3 @@
-from __future__ import annotations
 import re
 from .base import *
 from ..repositories.iuser_repository import *

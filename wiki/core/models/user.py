@@ -1,4 +1,3 @@
-from __future__ import annotations
 import enum
 import hashlib
 import hmac
@@ -27,6 +26,17 @@ class UserPassword(IValueObject):
         self.value = value
 
 
+class UserSecret(IValueObject):
+    def __init__(self, value: bytes):
+        if not isinstance(value, (bytes, bytearray)):
+            raise TypeError(value)
+        self.value = value
+
+    @classmethod
+    def generate(cls, length=32):
+        return cls(secrets.token_bytes(length))
+
+
 class UserHashedPassword(IValueObject):
     def __init__(self, value: str):
         if not isinstance(value, str):
@@ -41,17 +51,6 @@ class UserHashedPassword(IValueObject):
             hashlib.sha256
         ).hexdigest()
         return cls(hashed)
-
-
-class UserSecret(IValueObject):
-    def __init__(self, value: bytes):
-        if not isinstance(value, (bytes, bytearray)):
-            raise TypeError(value)
-        self.value = value
-
-    @classmethod
-    def generate(cls, length=32):
-        return cls(secrets.token_bytes(length))
 
 
 class UserRole(enum.IntEnum):

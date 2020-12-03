@@ -1,7 +1,6 @@
-from __future__ import annotations
-from ...core.repositories.idatabase import *
 import sqlite3
 import injector
+from ...core.repositories.idatabase import *
 
 
 class SQLite3Database(IDatabase):

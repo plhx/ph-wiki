@@ -1,12 +1,11 @@
-from __future__ import annotations
 import abc
-from typing import Union
+import typing
 from ..models.page import *
 
 
 class IPageRepository(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def load(self, page_id: PageId) -> Union[Page, None]:
+    def load(self, page_id: PageId) -> typing.Union[Page, None]:
         raise NotImplementedError()
 
     @abc.abstractmethod

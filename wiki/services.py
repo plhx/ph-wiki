@@ -1,4 +1,3 @@
-from __future__ import annotations
 from wiki.core.application.base import *
 from wiki.core.application.getusers import *
 from wiki.core.application.adduser import *

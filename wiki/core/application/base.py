@@ -1,4 +1,3 @@
-from __future__ import annotations
 import abc
 import typing
 
@@ -13,7 +12,7 @@ class IApplicationResponse(metaclass=abc.ABCMeta):
 
 class IApplicationHandler(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def execute(self, request: ApplicationRequest) -> ApplicationResponse:
+    def execute(self, request: IApplicationRequest) -> IApplicationResponse:
         raise NotImplementedError()
 
 

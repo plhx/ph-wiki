@@ -1,7 +1,6 @@
-from __future__ import annotations
 import abc
+import typing
 import injector
-from typing import Union
 from ...core.models.page import *
 from ...core.models.timezone import *
 from ...core.repositories.idatabase import *
@@ -25,7 +24,7 @@ class PageRepository(IPageRepository):
         )''')
         self.database.context.commit()
 
-    def load(self, page_id: PageId) -> Union[Page, None]:
+    def load(self, page_id: PageId) -> typing.Union[Page, None]:
         cur = self.database.context.cursor()
         cur.execute('''SELECT [page_id], [page_title], [page_body],
             [page_lastmodified], [page_version] FROM [page]

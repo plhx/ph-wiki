@@ -1,4 +1,3 @@
-from __future__ import annotations
 import abc
 from typing import Union
 from ..models.session import *

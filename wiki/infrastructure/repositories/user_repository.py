@@ -1,4 +1,3 @@
-from __future__ import annotations
 import injector
 from ...core.models.user import *
 from ...core.repositories.idatabase import *

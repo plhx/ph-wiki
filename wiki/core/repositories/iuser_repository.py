@@ -1,4 +1,3 @@
-from __future__ import annotations
 import abc
 from ..models.user import *
 

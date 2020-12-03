@@ -1,4 +1,3 @@
-from __future__ import annotations
 from .base import *
 from ..repositories.ipage_repository import *
 from ...dependencies import *

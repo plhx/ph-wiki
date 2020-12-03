@@ -1,7 +1,6 @@
-from __future__ import annotations
 import datetime
+import typing
 import injector
-from typing import Union
 from ...core.models.session import *
 from ...core.models.user import *
 from ...core.models.timezone import *
@@ -24,7 +23,7 @@ class SessionRepository(ISessionRepository):
         )''')
         self.database.context.commit()
 
-    def load(self, session_id: SessionId) -> Union[Session, None]:
+    def load(self, session_id: SessionId) -> typing.Union[Session, None]:
         cur = self.database.context.cursor()
         cur.execute('''SELECT [session_id], [user_id], [expires]
             FROM [session]

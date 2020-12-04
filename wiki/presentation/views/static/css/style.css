@@ -186,3 +186,27 @@ hr {
     padding-top: 36px;
     padding-bottom: 72px;
 }
+
+#markdown-preview h1 {
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+#markdown-preview h2 {
+    border-bottom: 2px solid #6f7887;
+    font-size: 20pt;
+}
+
+#markdown-preview h3 {
+    border-left: 4px solid #6f7887;
+    font-size: 16pt;
+    padding-left: 8px;
+}
+
+#markdown-preview h4 {
+    font-size: 14pt;
+}
+
+#markdown-preview h5 {
+    font-size: 12pt;
+}

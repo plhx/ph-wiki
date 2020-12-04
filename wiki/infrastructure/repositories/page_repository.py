@@ -74,11 +74,12 @@ class PageRepository(IPageRepository):
                 )
             else:
                 cur.execute('''UPDATE [page] SET
-                        [page_id] = :page_id, [page_title] = :title,
+                        [page_title] = :title,
                         [page_body] = :body,
                         [page_lastmodified] = :lastmodified,
                         [page_version] = :version + 1
-                    WHERE [page_version] = :version''',
+                    WHERE
+                        [page_id] = :page_id AND [page_version] = :version''',
                     {k: v.value for k, v in page.__dict__.items()}
                 )
         else:

@@ -16,6 +16,26 @@ IndicatorButton.prototype.state = function(state) {
 }
 
 
+let CookieRepository = {
+    get: function(key) {
+        let pairs = document.cookie.split('; ')
+        for(let i = 0; i < pairs.length; i++) {
+            let pair = pairs[i].split('=')
+            if(pair[0] == key)
+                return pair[1]
+        }
+        return null
+    },
+    set: function(key, value) {
+        document.cookie = key + '=' + value + ';';
+    },
+    setIfAbsent: function(key, value) {
+        if(!this.get(key))
+            this.set(key, value)
+    }
+}
+
+
 $(function() {
     let source = $('#markdown-source').html()
     if(source) {
@@ -26,23 +46,29 @@ $(function() {
     }
 
     $('#login-menu-view').on('click', () => {
-        let redirect = new URL(location.href).searchParams.get('redirect')
-        location.href = '/' + (redirect ? redirect : '')
+        let redirect = CookieRepository.get('redirect')
+        CookieRepository.set('redirect', '')
+        location.href = redirect ? redirect : '/'
     })
     $('#login-menu-edit').on('click', () => {
-        let path = new URL(location.href).pathname.substring(1)
-        location.href = '?edit=1&redirect=' + path
+        let path = new URL(location.href).pathname
+        CookieRepository.setIfAbsent('redirect', path)
+        location.href = '?edit=1'
     })
     $('#login-menu-profile').on('click', () => {
-        let path = new URL(location.href).pathname.substring(1)
-        location.href = '/profile?redirect=' + path
+        let path = new URL(location.href).pathname
+        CookieRepository.setIfAbsent('redirect', path)
+        location.href = '/profile'
     })
     $('#login-menu-manage').on('click', () => {
-        let path = new URL(location.href).pathname.substring(1)
-        location.href = '/manage?redirect=' + path
+        let path = new URL(location.href).pathname
+        CookieRepository.setIfAbsent('redirect', path)
+        location.href = '/manage'
     })
     $('#login-menu-logout').on('click', () => {
         document.cookie = 'session_id=; expires=' + (new Date().toGMTString())
-        location.href = '/'
+        let redirect = CookieRepository.get('redirect')
+        CookieRepository.set('redirect', '')
+        location.href = redirect ? redirect : '/'
     })
 })

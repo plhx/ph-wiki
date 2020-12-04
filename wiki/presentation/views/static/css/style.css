@@ -129,11 +129,16 @@ hr {
 }
 
 #page {
-    width: 800px;
     margin-left: auto;
     margin-right: auto;
     padding-top: 16px;
     padding-bottom: 16px;
+}
+
+@media screen and (min-width: 800px) {
+    #page {
+        width: 800px;
+    }
 }
 
 #login .login-container {

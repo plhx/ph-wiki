@@ -181,3 +181,8 @@ hr {
 #manage .manage-cell {
     display: table-cell;
 }
+
+#markdown-preview {
+    padding-top: 36px;
+    padding-bottom: 72px;
+}

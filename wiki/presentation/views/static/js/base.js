@@ -37,7 +37,7 @@ let CookieRepository = {
 
 
 $(function() {
-    let source = $('#markdown-source').html()
+    let source = $('#markdown-source').text()
     if(source) {
         $('#markdown-preview').html(marked(source))
         document.querySelectorAll('pre code').forEach((block) => {

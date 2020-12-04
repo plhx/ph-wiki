@@ -1,4 +1,5 @@
 import abc
+import sqlite3
 import typing
 import injector
 from ...core.models.page import *
@@ -63,17 +64,35 @@ class PageRepository(IPageRepository):
 
     def save(self, page: Page) -> None:
         cur = self.database.context.cursor()
-        cur.execute('''INSERT INTO [page] ([page_id], [page_title],
-                [page_body], [page_lastmodified], [page_version])
-            VALUES (:page_id, :title, :body, :lastmodified, 0)
-            ON CONFLICT([page_id])
-            DO UPDATE SET [page_title] = :title,
-                [page_body] = :body,
-                [page_lastmodified] = :lastmodified,
-                [page_version] = :version + 1
-                WHERE [page_version] = :version''',
-            {k: v.value for k, v in page.__dict__.items()}
-        )
+        if sqlite3.sqlite_version_info < (3, 24, 0):
+            p = self.load(page.page_id)
+            if p is None:
+                cur.execute('''INSERT INTO [page] ([page_id], [page_title],
+                        [page_body], [page_lastmodified], [page_version])
+                    VALUES (:page_id, :title, :body, :lastmodified, 0)''',
+                    {k: v.value for k, v in page.__dict__.items()}
+                )
+            else:
+                cur.execute('''UPDATE [page] SET
+                        [page_id] = :page_id, [page_title] = :title,
+                        [page_body] = :body,
+                        [page_lastmodified] = :lastmodified,
+                        [page_version] = :version + 1
+                    WHERE [page_version] = :version''',
+                    {k: v.value for k, v in page.__dict__.items()}
+                )
+        else:
+            cur.execute('''INSERT INTO [page] ([page_id], [page_title],
+                    [page_body], [page_lastmodified], [page_version])
+                VALUES (:page_id, :title, :body, :lastmodified, 0)
+                ON CONFLICT([page_id])
+                DO UPDATE SET [page_title] = :title,
+                    [page_body] = :body,
+                    [page_lastmodified] = :lastmodified,
+                    [page_version] = :version + 1
+                    WHERE [page_version] = :version''',
+                {k: v.value for k, v in page.__dict__.items()}
+            )
         if cur.rowcount != 1:
             raise RuntimeError()
         self.database.context.commit()

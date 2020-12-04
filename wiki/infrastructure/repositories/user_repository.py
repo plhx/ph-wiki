@@ -1,3 +1,4 @@
+import sqlite3
 import injector
 from ...core.models.user import *
 from ...core.repositories.idatabase import *
@@ -72,14 +73,21 @@ class UserRepository(IUserRepository):
 
     def save(self, user: User) -> None:
         cur = self.database.context.cursor()
-        cur.execute('''INSERT INTO [user]
-            ([user_id], [name], [password], [secret], [role]) VALUES
-            (:user_id, :name, :password, :secret, :role)
-            ON CONFLICT([user_id])
-            DO UPDATE SET [name] = :name, [password] = :password,
-                [secret] = :secret, [role] = :role''',
-            {k: v.value for k, v in user.__dict__.items()}
-        )
+        if sqlite3.sqlite_version_info < (3, 24, 0):
+            cur.execute('''REPLACE INTO [user]
+                ([user_id], [name], [password], [secret], [role]) VALUES
+                (:user_id, :name, :password, :secret, :role)''',
+                {k: v.value for k, v in user.__dict__.items()}
+            )
+        else:
+            cur.execute('''INSERT INTO [user]
+                ([user_id], [name], [password], [secret], [role]) VALUES
+                (:user_id, :name, :password, :secret, :role)
+                ON CONFLICT([user_id])
+                DO UPDATE SET [name] = :name, [password] = :password,
+                    [secret] = :secret, [role] = :role''',
+                {k: v.value for k, v in user.__dict__.items()}
+            )
         self.database.context.commit()
 
     def remove(self, user: User) -> None:

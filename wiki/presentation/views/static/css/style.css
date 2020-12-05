@@ -123,11 +123,6 @@ hr {
     min-width: 120px;
 }
 
-#edit code:not([class]),
-#page code:not([class]) {
-    color: #61afef;
-}
-
 #page {
     margin-left: auto;
     margin-right: auto;
@@ -188,32 +183,51 @@ hr {
 }
 
 #markdown-preview {
-    padding-top: 36px;
+    padding-top: 16px;
     padding-bottom: 72px;
 }
 
+#markdown-preview p {
+    text-indent: 1em;
+}
+
 #markdown-preview h1 {
+    color: #c6c4d2;
     font-size: 24pt;
     font-weight: bold;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
 }
 
 #markdown-preview h2 {
-    border-bottom: 2px solid #6f7887;
+    border-bottom: 2px solid #ca90d0;
+    color: #c6c4d2;
     font-size: 20pt;
+    font-weight: bold;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
 }
 
 #markdown-preview h3 {
-    border-left: 4px solid #6f7887;
+    border-left: 4px solid #93a1d2;
+    color: #c6c4d2;
     font-size: 16pt;
+    font-weight: bold;
     padding-left: 8px;
 }
 
 #markdown-preview h4 {
+    color: #c6c4d2;
     font-size: 14pt;
     font-weight: bold;
 }
 
 #markdown-preview h5 {
+    color: #c6c4d2;
     font-size: 12pt;
     font-weight: bold;
+}
+
+#markdown-preview code:not([class]) {
+    color: #56b6c2;
 }

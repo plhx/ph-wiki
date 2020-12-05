@@ -231,3 +231,23 @@ hr {
 #markdown-preview code:not([class]) {
     color: #56b6c2;
 }
+
+#markdown-preview table {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+#markdown-preview thead {
+    border-top: 1px solid #6f7887;
+    border-bottom: 1px solid #6f7887;
+}
+
+#markdown-preview tbody {
+    border-bottom: 1px solid #6f7887;
+}
+
+#markdown-preview th,
+#markdown-preview td {
+    padding-left: 1em;
+    padding-right: 1em;
+}

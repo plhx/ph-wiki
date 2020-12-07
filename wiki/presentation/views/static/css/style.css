@@ -232,6 +232,10 @@ hr {
     color: #56b6c2;
 }
 
+#markdown-preview pre {
+    white-space: pre-wrap;
+}
+
 #markdown-preview table {
     margin-top: 16px;
     margin-bottom: 16px;

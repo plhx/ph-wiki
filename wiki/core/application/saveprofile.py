@@ -33,9 +33,10 @@ class SaveProfileHandler(IApplicationHandler):
         else:
             if request.password != request.retypepassword:
                 raise ValueError()
+            user.secret = UserSecret.generate()
             user.password = UserHashedPassword.frompassword(
                 request.password,
-                UserSecret.generate()
+                user.secret
             )
         self.user_repository.save(user)
         return SaveProfileResponse()

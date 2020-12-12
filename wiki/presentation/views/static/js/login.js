@@ -25,8 +25,10 @@ $(function() {
                     }
                 }).done((response, textStatus, jqXHR) => {
                     let date = new Date(response.expires * 1000)
-                    document.cookie = 'session_id=' + response.session_id + '; expires=' + date.toGMTString()
-                    document.location = response.redirect_url
+                    let redirect = CookieRepository.get('redirect')
+                    CookieRepository.set('redirect', '')
+                    CookieRepository.set('session_id', response.session_id)
+                    location.href = redirect ? redirect : '/'
                     LoginButton.state('done')
                 }).fail((jqXHR, textStatus, errorThrown) => {
                     LoginButton.state('fail')
